@@ -36,14 +36,14 @@ const questions = [
             this.shapeElement = "";
         }
         render(){
-            return `<svg version="1.1" width="300" height="200" xmlns="http://www.w3.org/2000/svg">${this.shapeElement}${this.text}</svg>`
+            return `<svg version="1.1" width="300" height="200" xmlns="http://www.w3.org/2000/svg">${this.shapeElement}${this.textElement}</svg>`
         }
-        setText(text, color){
+        setTextElement(text, color){
             this.textElement = `<text x="150" y="125" font-size="60" text-anchor="middle" fill="${color}">${text}</text>`
         }
-        setShape(shape, color){
+        setShapeElement(shape, color){
             this.shapeElement = shape.render()
-            this.shahpeElement = this.shapeElement.replace('fill=""', `fill="${color}"`);
+            this.shapeElement = this.shapeElement.replace('fill=""', `fill="${color}"`);
         }
     }
 
@@ -61,19 +61,19 @@ function writeToFile(fileName, data) {
 async function init() {
         const answers = await inquirer.prompt(questions);
         const svg = new SVG();
-        svg.setText(answers.text, answers.textColor);
+        svg.setTextElement(answers.text, answers.textColor);
         switch (answers.shape) {
             case 'Circle':
-                svg.setShape(new Circle(), answers.shapeColor);
+                svg.setShapeElement(new Circle(), answers.shapeColor);
                 break;
             case 'Triangle':
-                svg.setShape(new Triangle(), answers.shapeColor);
+                svg.setShapeElement(new Triangle(), answers.shapeColor);
                 break;
             case 'Square':
-                svg.setShape(new Square(), answers.shapeColor);
+                svg.setShapeElement(new Square(), answers.shapeColor);
                 break;
         }
-        writeToFile('logo.svg', svg.render());
+        writeToFile('./dist/logo.svg', svg.render());
       }
 
       init();
